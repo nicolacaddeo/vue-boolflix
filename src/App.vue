@@ -4,6 +4,13 @@
       <h1>Boolfix</h1>
       <InputComponent @search="searchFilm"/>
     </header>
+    <main>
+      <FilmCardComponent v-for="movie in moviesFound" :key="movie.id"
+      :title = movie.title
+      :originalTitle = movie.original_title
+      :language = movie.original_language
+      :vote = movie.vote_average />
+    </main>
   </div>
 </template>
 
@@ -11,27 +18,26 @@
   import {apiKey} from '@/data/env.js'
   import axios from 'axios'
   import InputComponent from '@/components/InputComponent.vue'
-  
+  import FilmCardComponent from './components/FilmCardComponent.vue'
   
   export default {
   components: {
-    InputComponent
+    InputComponent,
+    FilmCardComponent
 },
   data() {
     return {
-      apiKey
+      apiKey,
+      moviesFound: []
     }
-  },
-  created() {
-    
   },
   methods: {
     searchFilm(searchedFilm) {
       axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchedFilm}&language=it-IT`)
       .then(({status, data})=>{
       if (status === 200) {
-        console.log(data);
-        
+        console.log('data:', data.results);
+        this.moviesFound = data.results;
       }
     })
     }
@@ -54,6 +60,10 @@ header {
     text-transform: uppercase;
   }
 }
+main {
+  padding: 2rem;
+}
 </style>
+  
   
     
