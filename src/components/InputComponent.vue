@@ -25,3 +25,4 @@ export default {
         padding: .2rem .5rem;
     }
 </style>
+            
