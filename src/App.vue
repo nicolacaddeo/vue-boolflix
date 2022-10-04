@@ -9,12 +9,14 @@
       :title = movie.title
       :originalTitle = movie.original_title
       :language = movie.original_language
-      :vote = movie.vote_average />
+      :vote = movie.vote_average 
+      :posterPath = movie.poster_path />
       <TvSeriesComponent v-for="serie in tvSeriesFound" :key="serie.id"
       :title = serie.name
       :originalTitle = serie.original_name
       :language = serie.original_language
-      :vote = serie.vote_average />
+      :vote = serie.vote_average 
+      :posterPath = serie.poster_path />
     </main>
   </div>
 </template>

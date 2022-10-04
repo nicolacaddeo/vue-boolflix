@@ -1,9 +1,14 @@
 <template>
   <div class="card">
-    <h3>{{ title }}</h3>
-    <p>Original Title: {{ originalTitle }}</p>
-    <p>Original Language: <img :src="getFlag()" alt="language"></p>
-    <p>Vote: {{ vote }}</p>
+    <div class="poster">
+        <img :src="`https://image.tmdb.org/t/p/w185${posterPath}`">
+    </div>
+    <div class="info">
+        <h3>{{ title }}</h3>
+        <p>Original Title: {{ originalTitle }}</p>
+        <p>Original Language: <img class="flag" :src="getFlag()" alt="language"></p>
+        <p>Vote: {{ vote }}</p>
+    </div>
   </div>
 </template>
 
@@ -14,7 +19,8 @@ export default {
         title: String,
         originalTitle: String,
         language: String,
-        vote: Number
+        vote: Number,
+        posterPath: String
     },
     data() {
         return {
@@ -37,15 +43,19 @@ export default {
 
 <style scoped lang="scss">
 .card{
-        width: 40vw;
-        height: 300px;
+        width: 50vw;
         border: 1px solid #111;
         padding: 1rem;
         margin: 1rem 0;
         line-height: 2rem;
-        img {
+        display: flex;
+        .poster {
+            margin-right: 2rem;
+        }
+        .flag {
             width: 20px;
             vertical-align: middle;
         }
     }
 </style>
+        
