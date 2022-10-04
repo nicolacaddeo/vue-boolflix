@@ -10,6 +10,11 @@
       :originalTitle = movie.original_title
       :language = movie.original_language
       :vote = movie.vote_average />
+      <TvSeriesComponent v-for="serie in tvSeriesFound" :key="serie.id"
+      :title = serie.name
+      :originalTitle = serie.original_name
+      :language = serie.original_language
+      :vote = serie.vote_average />
     </main>
   </div>
 </template>
@@ -19,16 +24,19 @@
   import axios from 'axios'
   import InputComponent from '@/components/InputComponent.vue'
   import FilmCardComponent from './components/FilmCardComponent.vue'
+  import TvSeriesComponent from './components/TvSeriesComponent.vue'
   
   export default {
   components: {
     InputComponent,
-    FilmCardComponent
+    FilmCardComponent,
+    TvSeriesComponent
 },
   data() {
     return {
       apiKey,
-      moviesFound: []
+      moviesFound: [],
+      tvSeriesFound: []
     }
   },
   methods: {
@@ -39,7 +47,14 @@
         console.log('data:', data.results);
         this.moviesFound = data.results;
       }
-    })
+    }),
+    axios.get(`https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&query=${searchedFilm}&language=it-IT`)
+      .then(({status, data})=>{
+        if (status === 200) {
+          console.log('data serie tv:', data.results);
+          this.tvSeriesFound = data.results;
+        }
+      })
     }
   }
 }
